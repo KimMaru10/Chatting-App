@@ -1,23 +1,22 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import { Route, Routes } from 'react-router-dom';
+import ChatRoom from './ChatRoom/ChatRoom';
+import ChatJoin from './ChatJoin';
 
 function App() {
+  const [nickname, setNickname] = useState("");
+
+  const handleJoin = (nickname) => {
+    setNickname(nickname);
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Routes>
+        <Route path="/" exact={true} element={<ChatJoin onJoin={handleJoin} />} />
+        {/* prop 이름을 nickname으로 수정 */}
+        <Route path='/chatRoom/:nickname' element={<ChatRoom/>} /> 
+      </Routes>
     </div>
   );
 }
