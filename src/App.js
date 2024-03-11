@@ -5,7 +5,7 @@ import ChatJoin from './ChatJoin';
 
 function App() {
   const [nickname, setNickname] = useState("");
-
+  
   const handleJoin = (nickname) => {
     setNickname(nickname);
   };
@@ -15,7 +15,7 @@ function App() {
       <Routes>
         <Route path="/" exact={true} element={<ChatJoin onJoin={handleJoin} />} />
         {/* prop 이름을 nickname으로 수정 */}
-        <Route path='/chatRoom/:nickname' element={<ChatRoom/>} /> 
+        <Route path='/chatRoom/:nickname' element={<ChatRoom nickname={nickname}/>} /> 
       </Routes>
     </div>
   );
