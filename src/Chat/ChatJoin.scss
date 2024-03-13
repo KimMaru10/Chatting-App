@@ -1,0 +1,59 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto:300);
+.chatJoin{
+    background: #e74c3c;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &__container{
+        width: 400px;
+        
+        margin: auto;
+        &__form{
+            position: relative;
+            background-color: #fff;
+            width: 400px;
+            margin: 0 auto 400px;
+            padding: 45px;
+            text-align: center;
+            box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+            
+            h1{
+                font-weight: 200;
+                color: #333;
+            }
+            
+            input {
+                width: 100%;
+                height: auto;
+                margin: 0 0 15px;
+                padding: 15px;
+                outline: 0;
+                border: none;
+                font-family: "Roboto", sans-serif;
+                background: #f2f2f2;
+                box-sizing: border-box;
+                font-size: 14px;
+            }
+            button{
+                font-family: "Roboto", sans-serif;
+                text-transform: uppercase;
+                outline: 0;
+                background: #e74c3c;
+                width: 100%;
+                border: 0;
+                padding: 15px;
+                color: #FFFFFF;
+                font-size: 14px;
+                -webkit-transition: all 0.3 ease;
+                transition: all 0.3 ease;
+                cursor: pointer;
+              }
+        }
+        
+        
+        
+    }
+}
