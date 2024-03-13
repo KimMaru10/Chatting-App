@@ -8,8 +8,6 @@
     align-items: center;
 
     &__container{
-        width: 400px;
-        
         margin: auto;
         &__form{
             position: relative;
@@ -24,7 +22,10 @@
                 font-weight: 200;
                 color: #333;
             }
-            
+            p{
+                font-weight: 200;
+                color: #787777; 
+            }
             input {
                 width: 100%;
                 height: auto;
@@ -52,8 +53,12 @@
                 cursor: pointer;
               }
         }
-        
-        
-        
     }
 }
+@media screen and (max-width:380px) { 
+    .chatJoin__container{
+        width: 380px;
+    }
+}
+@media screen and (max-width:768px) {  }
+@media screen and (max-width:1200px) { }
