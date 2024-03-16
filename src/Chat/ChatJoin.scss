@@ -9,11 +9,14 @@
 
     &__container{
         margin: auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
         &__form{
             position: relative;
             background-color: #fff;
-            width: 400px;
-            margin: 0 auto 400px;
+            width: 650px;
+            margin: 2%;
             padding: 45px;
             text-align: center;
             box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
@@ -55,10 +58,19 @@
         }
     }
 }
-@media screen and (max-width:380px) { 
-    .chatJoin__container{
-        width: 380px;
-    }
-}
-@media screen and (max-width:768px) {  }
-@media screen and (max-width:1200px) { }
+
+// @media screen and (max-width:380px) { 
+//     .chatJoin__container__form{
+//         width: 350px;
+//     }
+// }
+// @media screen and (max-width:768px) { 
+//     .chatJoin__container__form{
+//         width: 450px;
+//     }
+// }
+// @media screen and (max-width:1200px) { 
+//     .chatJoin__container__form{
+//         width: 550px;
+//     }
+// }

@@ -24,7 +24,7 @@ function ChatRoom() {
       // /topic/messages 주소를 구독
       socket.subscribe('/topic/messages', function (message) {
         // 서버에서 전송한 메시지를 받아와서 화면에 표시
-        console.log('서버에서 메시지 수신:', message.body);
+
         const parsedMessage = JSON.parse(message.body);
         setMessages(prevMessages => [...prevMessages, { nickname: parsedMessage.nickname, content: parsedMessage.message }]);
       });
@@ -43,7 +43,7 @@ function ChatRoom() {
   }, []);
 
   // 메시지 전송 함수
-  const sendMessage = () => {
+  const sendMessage = (event) => {
     if (!messageInput.trim()) return;
 
     // /app/chat 주소로 메시지 전송
@@ -51,27 +51,41 @@ function ChatRoom() {
       destination: '/app/chat',
       body: JSON.stringify({ 'message': messageInput, 'nickname': nickname }), // 닉네임과 메시지를 함께 보냄
     });
-
-    console.log('메세지 보냄:', messageInput);
+    
+    
     setMessageInput('');
   };
 
+  // const handleOnKeyDown = (event) => {
+  //   if(event.key === 'Enter'){
+  //     sendMessage(event);
+  //     event.preventDefault();  // textarea 엔터키를 방지한다.
+  //   }
+  // };
   return (
     <div className='chatRoom'>
-      <h1>방명록 테스트</h1>
-      <textarea
-        value={messageInput}
-        onChange={(e) => setMessageInput(e.target.value)}
-        placeholder="메시지 입력"
-      />
-      <button onClick={sendMessage}>메시지 보내기</button>
-      <ul>
-        {messages.map((message, index) => (
-          <li key={index}>
-            <p>{message.nickname} : {message.content}</p>
-          </li>
-        ))}
-      </ul>
+      <div className='chatRoom__container'>
+        <h1>Open Chatting Room</h1>
+        <div className='chatRoom__container__chatBox'>
+          <ul>
+            {messages.map((message, index) => (
+              <li key={index}>
+                <p>{message.nickname} : {message.content}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div className='chatRoom__container__sendBox'>
+          <textarea
+            value={messageInput}
+            onChange={(e) => setMessageInput(e.target.value)}
+            placeholder="메시지 입력"
+            // onKeyDown={handleOnKeyDown}
+            
+          />
+          <button onClick={sendMessage}>보내기</button> 
+        </div>
+      </div>
     </div>
   );
 }
