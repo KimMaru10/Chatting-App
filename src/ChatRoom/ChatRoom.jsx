@@ -69,8 +69,9 @@ function ChatRoom() {
         <div className='chatRoom__container__chatBox'>
           <ul>
             {messages.map((message, index) => (
-              <li key={index}>
-                <p>{message.nickname} : {message.content}</p>
+              <li key={index} className={message.nickname === nickname ? 'sent' : 'received'}>
+                <p className='userName'>{message.nickname !== nickname ? message.nickname: ''} </p>
+                <p className='contant'>{message.content}</p>
               </li>
             ))}
           </ul>

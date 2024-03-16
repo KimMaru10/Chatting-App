@@ -11,15 +11,53 @@
         box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 
         h1{
-            background-color: #f7d2d2;
+            background-color: #ea7474;
             font-family: "Roboto", sans-serif;
             font-weight: 200;
             margin: 0;
+            padding: 10px;
+            color: white;
+            
         }
         &__chatBox{
             width: 600px;
             height: 600px;
             overflow: scroll;
+            ul{
+                margin: 0;
+                padding: 0;
+                display: flex;
+                flex-direction: column;
+            }
+            .sent{
+                align-self: flex-end;
+                
+                .contant{
+                    background-color: #fffc97;
+                    border-radius: 10px 0px 10px 10px;
+                    padding: 10px;
+                    margin: 0px 20px;
+                }
+            }
+            .received{
+                align-self: flex-start;
+                text-align: left;
+                .userName{
+                    margin: 5px 20px;
+                    font-size: 12px;
+                    color: #c1c0c0;
+                }
+                .contant{
+                    background-color: rgb(215, 237, 198);
+                    border-radius: 0px 10px 10px 10px;
+                    padding: 10px;
+                    margin: 0px 20px;
+                    
+                }
+            }
+            p{
+                
+            }
         }
         &__sendBox{
             display: flex;
@@ -27,7 +65,7 @@
             align-items: center;
             margin: 10px 0px;
             textArea{
-                width: 300px;
+                width: 80%;
                 height: 50px;
                 resize: none;
                 margin: 0 10px;
