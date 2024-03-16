@@ -7,7 +7,7 @@ let socket;
 function ChatRoom() {
   const [messages, setMessages] = useState([]);
   const [messageInput, setMessageInput] = useState('');
-  const { nickname } = useParams(); // URL 파라미터로 받아온 닉네임을 nickname으로 설정
+  const { user_id } = useParams(); // URL 파라미터로 받아온 닉네임을 user_id으로 설정
   useEffect(() => {
     // WebSocket 연결 설정
     socket = new Client({
@@ -24,10 +24,15 @@ function ChatRoom() {
       // /topic/messages 주소를 구독
       socket.subscribe('/topic/messages', function (message) {
         // 서버에서 전송한 메시지를 받아와서 화면에 표시
-
+        
         const parsedMessage = JSON.parse(message.body);
-        setMessages(prevMessages => [...prevMessages, { nickname: parsedMessage.nickname, content: parsedMessage.message }]);
+        setMessages(prevMessages => [...prevMessages, { user_id: parsedMessage.user_id, content: parsedMessage.message }]);
       });
+    };
+
+    // WebSocket 연결이 닫혔을 때
+    socket.onDisconnect = function () {
+      console.log('WebSocket 연결이 닫혔습니다.');
     };
 
     // WebSocket 오류가 발생했을 때
@@ -49,7 +54,7 @@ function ChatRoom() {
     // /app/chat 주소로 메시지 전송
     socket.publish({
       destination: '/app/chat',
-      body: JSON.stringify({ 'message': messageInput, 'nickname': nickname }), // 닉네임과 메시지를 함께 보냄
+      body: JSON.stringify({ 'message': messageInput, 'user_id': user_id }), // 닉네임과 메시지를 함께 보냄
     });
     
     
@@ -69,8 +74,8 @@ function ChatRoom() {
         <div className='chatRoom__container__chatBox'>
           <ul>
             {messages.map((message, index) => (
-              <li key={index} className={message.nickname === nickname ? 'sent' : 'received'}>
-                <p className='userName'>{message.nickname !== nickname ? message.nickname: ''} </p>
+              <li key={index} className={message.user_id === user_id ? 'sent' : 'received'}>
+                <p className='userName'>{message.user_id !== user_id ? message.user_id: ''} </p>
                 <p className='contant'>{message.content}</p>
               </li>
             ))}
