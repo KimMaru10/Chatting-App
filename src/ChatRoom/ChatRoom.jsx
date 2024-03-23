@@ -59,8 +59,12 @@ function ChatRoom() {
     if (!messageInput.trim()) return;
 
     // /app/chat 주소로 메시지 전송
+    // socket.publish({
+    //   destination: '/app/chat/',
+    //   body: JSON.stringify({ 'message': messageInput, 'user_id': user_id }), // 닉네임과 메시지를 함께 보냄
+    // });
     socket.publish({
-      destination: '/app/chat',
+      destination: `/topic/messages/${roomName}`,
       body: JSON.stringify({ 'message': messageInput, 'user_id': user_id }), // 닉네임과 메시지를 함께 보냄
     });
     
