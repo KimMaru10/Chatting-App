@@ -58,16 +58,11 @@ function ChatRoom() {
   const sendMessage = (event) => {
     if (!messageInput.trim()) return;
 
-    // /app/chat 주소로 메시지 전송
-    // socket.publish({
-    //   destination: '/app/chat/',
-    //   body: JSON.stringify({ 'message': messageInput, 'user_id': user_id }), // 닉네임과 메시지를 함께 보냄
-    // });
+    // /topic/messages/roomName 주소로 메시지 전송
     socket.publish({
       destination: `/topic/messages/${roomName}`,
       body: JSON.stringify({ 'message': messageInput, 'user_id': user_id }), // 닉네임과 메시지를 함께 보냄
     });
-    
     setMessageInput('');
   };
   
@@ -81,12 +76,12 @@ function ChatRoom() {
   //   }
   // };
 
-  // const handleOnKeyDown = (event) => {
-  //   if(event.key === 'Enter'){
-  //     sendMessage(event);
-  //     event.preventDefault();  // textarea 엔터키를 방지한다.
-  //   }
-  // };
+  const handleOnKeyDown = (event) => {
+    if(event.keyCode === 13){
+      sendMessage(event);
+      event.preventDefault();  // textarea 엔터키를 방지한다.
+    }
+  };
   return (
     <div className='chatRoom'>
       <div className='chatRoom__container'>
@@ -106,7 +101,7 @@ function ChatRoom() {
             value={messageInput}
             onChange={(e) => setMessageInput(e.target.value)}
             placeholder="메시지 입력"
-            // onKeyDown={handleOnKeyDown}
+            onKeyDown={handleOnKeyDown}
             
           />
           <button onClick={sendMessage}>보내기</button> 

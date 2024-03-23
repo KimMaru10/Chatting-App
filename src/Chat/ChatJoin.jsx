@@ -14,7 +14,7 @@ const ChatJoin = () => {
         }
     }
     const handleOnKeyPress = (event) => {
-      if (event.key === 'Enter') {
+      if (event.keyCode === 13) {
         event.preventDefault();
         handleSubmit(); // Enter 입력이 되면 클릭 이벤트 실행
       }
