@@ -2,15 +2,15 @@ import React,{useState} from 'react'
 import { useNavigate } from 'react-router-dom';
 import './ChatJoin.scss';
 const ChatJoin = () => {
-    const [user_id, setUser_id] = useState('');
+    const [userName, setUserName] = useState('');
     const [roomName, setRoomName] = useState('');
     const navigate = useNavigate();
 
     const handleSubmit = (event) => {
-        if(user_id.trim() === '' || roomName.trim() === ''){ // 'trim()' 메소드는 문자열의 양 끝에 있는 공백을 제거합니다.
+        if(userName.trim() === '' || roomName.trim() === ''){ // 'trim()' 메소드는 문자열의 양 끝에 있는 공백을 제거합니다.
           alert("닉네임 또는 채팅 룸 번호가 입력되지 않았습니다.");
         }else{
-          navigate(`/chatRoom/${roomName}/${user_id}`);
+          navigate(`/chatRoom/${roomName}/${userName}`);
         }
     }
     const handleOnKeyPress = (event) => {
@@ -29,8 +29,8 @@ const ChatJoin = () => {
             className='chatJoin__inputBox'
             type='text' 
             placeholder='닉네임을 입력 하세요' 
-            value={user_id}
-            onChange={(e)=>setUser_id(e.target.value)} 
+            value={userName}
+            onChange={(e)=>setUserName(e.target.value)} 
             onKeyDown={handleOnKeyPress}        
           />
           <input 

@@ -8,7 +8,7 @@ let socket;
 function ChatRoom() {
   const [messages, setMessages] = useState([]);
   const [messageInput, setMessageInput] = useState('');
-  const { user_id, roomName} = useParams(); // URL 파라미터로 받아온 닉네임을 user_id으로 설정
+  const { userName, roomName} = useParams(); // URL 파라미터로 받아온 닉네임을 user_id으로 설정
   useEffect(() => {
     // WebSocket 연결 설정
     socket = new Client({
@@ -33,7 +33,7 @@ function ChatRoom() {
         // 서버에서 전송한 메시지를 받아와서 화면에 표시
         
         const parsedMessage = JSON.parse(message.body);
-        setMessages(prevMessages => [...prevMessages, { user_id: parsedMessage.user_id, content: parsedMessage.message }]);
+        setMessages(prevMessages => [...prevMessages, { userName: parsedMessage.userName, content: parsedMessage.message }]);
       });
     };
 
@@ -61,27 +61,41 @@ function ChatRoom() {
     // /topic/messages/roomName 주소로 메시지 전송
     socket.publish({
       destination: `/topic/messages/${roomName}`,
-      body: JSON.stringify({ 'message': messageInput, 'user_id': user_id }), // 닉네임과 메시지를 함께 보냄
+      body: JSON.stringify({ 'message': messageInput, 'userName': userName }), // 닉네임과 메시지를 함께 보냄
     });
     setMessageInput('');
   };
   
-  // 채팅 기록을 가져오는 함수
-  // const fetchChatHistory = async (roomId) => {
-  //   try {
-  //       const response = await axios.get(`/api/chat/history/${roomId}`);
-  //       return response.data; // 가져온 채팅 기록을 반환
-  //   } catch (error) {
-  //       throw new Error('채팅 기록을 가져오는 중 오류 발생: ' + error.message);
-  //   }
-  // };
-
   const handleOnKeyDown = (event) => {
     if(event.keyCode === 13){
       sendMessage(event);
       event.preventDefault();  // textarea 엔터키를 방지한다.
     }
   };
+  
+  //채팅 기록을 가져오는 함수
+  // const fetchChatHistory = async (room_id) => {
+  //   try {
+  //       const response = await axios.get(`/api/chat/history/${room_id}`); //나중에 변경
+  //       return response.data; // 가져온 채팅 기록을 반환
+  //   } catch (error) {
+  //       throw new Error('채팅 기록을 가져오는 중 오류 발생: ' + error.message);
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   // 컴포넌트가 마운트될 때 fetchChatHistory 함수를 호출하여 채팅 기록을 가져옴
+  //   const room_name = roomName; // 채팅방의 아이디 혹은 필요한 값
+  //   fetchChatHistory(room_name)
+  //     .then(chatHistory => {
+  //       // 가져온 채팅 기록을 상태에 설정
+  //       setMessages(chatHistory);
+  //     })
+  //     .catch(error => {
+  //       console.error('이전 채팅 기록을 가져오는 중 오류 발생:', error.message);
+  //     });
+  // }, [roomName]);
+
   return (
     <div className='chatRoom'>
       <div className='chatRoom__container'>
@@ -89,8 +103,8 @@ function ChatRoom() {
         <div className='chatRoom__container__chatBox'>
           <ul>
             {messages.map((message, index) => (
-              <li key={index} className={message.user_id === user_id ? 'sent' : 'received'}>
-                <p className='userName'>{message.user_id !== user_id ? message.user_id: ''} </p>
+              <li key={index} className={message.userName === userName ? 'sent' : 'received'}>
+                <p className='userName'>{message.userName !== userName ? message.userName: ''} </p>
                 <p className='contant'>{message.content}</p>
               </li>
             ))}

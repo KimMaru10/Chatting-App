@@ -4,17 +4,17 @@ import ChatRoom from './ChatRoom/ChatRoom';
 import ChatJoin from './Chat/ChatJoin';
 
 function App() {
-  const [user_id, setUser_id] = useState("");
+  const [userName, setUserName] = useState("");
   
-  const handleJoin = (user_id) => {
-    setUser_id(user_id);
+  const handleJoin = (userName) => {
+    setUserName(userName);
   };
 
   return (
     <div className="App">
       <Routes>
         <Route path="/" exact={true} element={<ChatJoin onJoin={handleJoin} />} />
-        <Route path='/chatRoom/:roomName/:user_id' element={<ChatRoom user_id={user_id}/>} /> 
+        <Route path='/chatRoom/:roomName/:userName' element={<ChatRoom userName={userName}/>} /> 
       </Routes>
     </div>
   );
