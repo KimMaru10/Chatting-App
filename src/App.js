@@ -14,7 +14,7 @@ function App() {
     <div className="App">
       <Routes>
         <Route path="/" exact={true} element={<ChatJoin onJoin={handleJoin} />} />
-        <Route path='/chatRoom/:user_id' element={<ChatRoom user_id={user_id}/>} /> 
+        <Route path='/chatRoom/:roomName/:user_id' element={<ChatRoom user_id={user_id}/>} /> 
       </Routes>
     </div>
   );

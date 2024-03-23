@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { Client } from '@stomp/stompjs';
 import { useParams } from 'react-router-dom';
+// import axios from 'axios';
 import './ChatRoom.scss';
 let socket;
 
 function ChatRoom() {
   const [messages, setMessages] = useState([]);
   const [messageInput, setMessageInput] = useState('');
-  const { user_id } = useParams(); // URL 파라미터로 받아온 닉네임을 user_id으로 설정
+  const { user_id, roomName} = useParams(); // URL 파라미터로 받아온 닉네임을 user_id으로 설정
   useEffect(() => {
     // WebSocket 연결 설정
     socket = new Client({
@@ -20,9 +21,15 @@ function ChatRoom() {
     // 연결이 열렸을 때
     socket.onConnect = function () {
       console.log('WebSocket 연결이 열렸습니다.');
+      
+      // 방 번호를 서버에 전송
+      socket.publish({
+        destination: '/topic/messages',
+        body: JSON.stringify({ 'roomName': roomName })
+      });
 
       // /topic/messages 주소를 구독
-      socket.subscribe('/topic/messages', function (message) {
+      socket.subscribe(`/topic/messages/${roomName}`, function (message) {
         // 서버에서 전송한 메시지를 받아와서 화면에 표시
         
         const parsedMessage = JSON.parse(message.body);
@@ -45,7 +52,7 @@ function ChatRoom() {
 
     // 컴포넌트 언마운트 시 WebSocket 비활성화
     return () => socket.deactivate();
-  }, []);
+  }, [roomName]);
 
   // 메시지 전송 함수
   const sendMessage = (event) => {
@@ -57,9 +64,18 @@ function ChatRoom() {
       body: JSON.stringify({ 'message': messageInput, 'user_id': user_id }), // 닉네임과 메시지를 함께 보냄
     });
     
-    
     setMessageInput('');
   };
+  
+  // 채팅 기록을 가져오는 함수
+  // const fetchChatHistory = async (roomId) => {
+  //   try {
+  //       const response = await axios.get(`/api/chat/history/${roomId}`);
+  //       return response.data; // 가져온 채팅 기록을 반환
+  //   } catch (error) {
+  //       throw new Error('채팅 기록을 가져오는 중 오류 발생: ' + error.message);
+  //   }
+  // };
 
   // const handleOnKeyDown = (event) => {
   //   if(event.key === 'Enter'){
