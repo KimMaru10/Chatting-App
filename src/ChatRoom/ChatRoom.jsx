@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect,useRef } from 'react';
 import { Client } from '@stomp/stompjs';
 import { useParams } from 'react-router-dom';
 // import axios from 'axios';
@@ -9,6 +9,8 @@ function ChatRoom() {
   const [messages, setMessages] = useState([]);
   const [messageInput, setMessageInput] = useState('');
   const { userName, roomName} = useParams(); // URL 파라미터로 받아온 닉네임을 user_id으로 설정
+  const messageBoxRef = useRef(null);
+
   useEffect(() => {
     // WebSocket 연결 설정
     socket = new Client({
@@ -66,13 +68,6 @@ function ChatRoom() {
     setMessageInput('');
   };
   
-  const handleOnKeyDown = (event) => {
-    if(event.keyCode === 13){
-      sendMessage(event);
-      event.preventDefault();  // textarea 엔터키를 방지한다.
-    }
-  };
-  
   //채팅 기록을 가져오는 함수
   // const fetchChatHistory = async (room_id) => {
   //   try {
@@ -96,6 +91,24 @@ function ChatRoom() {
   //     });
   // }, [roomName]);
 
+  //채팅 입력시 엔터키로 전송
+  const handleOnKeyDown = (event) => {
+    if(event.keyCode === 13){
+      sendMessage(event);
+      event.preventDefault();  // textarea 엔터키를 방지한다.
+    }
+  };
+
+  //채팅앱 스크롤
+  const scrollToBottom = () =>{
+    if(messageBoxRef.current !== null){
+      messageBoxRef.current.scrollTop = messageBoxRef.current.scrollHeight;
+    }
+  };
+  useEffect(()=>{
+    scrollToBottom();
+  },[messages])
+
   return (
     <div className='chatRoom'>
       <div className='chatRoom__container'>
@@ -116,7 +129,6 @@ function ChatRoom() {
             onChange={(e) => setMessageInput(e.target.value)}
             placeholder="메시지 입력"
             onKeyDown={handleOnKeyDown}
-            
           />
           <button onClick={sendMessage}>보내기</button> 
         </div>
