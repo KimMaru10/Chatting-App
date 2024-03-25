@@ -82,45 +82,37 @@
     }
 
 }
-@media screen and (max-width:650px) { 
-    .chatRoom__container__chatBox{
-        width: 600px;
-        height: 600px;
-    }
-}
-@media screen and (max-width:600px) { 
+@media screen and (max-width:700px) { 
     .chatRoom__container__chatBox{
         width: 550px;
-        height: 600px;
+        height: 500px;
     }
 }
 @media screen and (max-width:550px) { 
     .chatRoom__container__chatBox{
         width: 500px;
-        height: 600px;
     }
 }
 @media screen and (max-width:500px) { 
     .chatRoom__container__chatBox{
         width: 450px;
-        height: 600px;
     }
 }
 @media screen and (max-width:450px){
     .chatRoom__container__chatBox{
         width: 400px;
-        height: 600px;
+        height: 450px;
     }
 }
 @media screen and (max-width:400px){
     .chatRoom__container__chatBox{
         width: 350px;
-        height: 600px;
+        height: 450px;
     }
 }
 @media screen and (max-width:350px){
     .chatRoom__container__chatBox{
         width: 300px;
-        height: 600px;
+        height: 400px;
     }
 }

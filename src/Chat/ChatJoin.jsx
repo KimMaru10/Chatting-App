@@ -16,7 +16,7 @@ const ChatJoin = () => {
           userName:userName,
           roomName:roomName
         }
-        //axios를 사용하여 POST 요청을 보냅니다. 
+        // axios를 사용하여 POST 요청을 보냅니다. 
         axios.post("http://kim-sun-woo.com/chat/info", JoinData)
           .then(response =>{
             //요청이 성공한 경우, ChatRoom으로 이동합니다. 
