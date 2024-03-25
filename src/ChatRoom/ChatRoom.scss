@@ -58,14 +58,14 @@
         }
         &__sendBox{
             display: flex;
-            justify-content: center;
+            justify-content: space-evenly;
             align-items: center;
             margin: 10px 0px;
             textArea{
                 width: 80%;
                 height: 50px;
                 resize: none;
-                margin: 0 10px;
+                
             }
             button{
                 background: #e74c3c;
@@ -81,4 +81,46 @@
         list-style-type: none;
     }
 
+}
+@media screen and (max-width:650px) { 
+    .chatRoom__container__chatBox{
+        width: 600px;
+        height: 600px;
+    }
+}
+@media screen and (max-width:600px) { 
+    .chatRoom__container__chatBox{
+        width: 550px;
+        height: 600px;
+    }
+}
+@media screen and (max-width:550px) { 
+    .chatRoom__container__chatBox{
+        width: 500px;
+        height: 600px;
+    }
+}
+@media screen and (max-width:500px) { 
+    .chatRoom__container__chatBox{
+        width: 450px;
+        height: 600px;
+    }
+}
+@media screen and (max-width:450px){
+    .chatRoom__container__chatBox{
+        width: 400px;
+        height: 600px;
+    }
+}
+@media screen and (max-width:400px){
+    .chatRoom__container__chatBox{
+        width: 350px;
+        height: 600px;
+    }
+}
+@media screen and (max-width:350px){
+    .chatRoom__container__chatBox{
+        width: 300px;
+        height: 600px;
+    }
 }
