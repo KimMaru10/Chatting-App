@@ -113,7 +113,7 @@ function ChatRoom() {
     <div className='chatRoom'>
       <div className='chatRoom__container'>
         <h1>Open Chatting Room</h1>
-        <div className='chatRoom__container__chatBox'>
+        <div className='chatRoom__container__chatBox' ref={messageBoxRef}>
           <ul>
             {messages.map((message, index) => (
               <li key={index} className={message.userName === userName ? 'sent' : 'received'}>
