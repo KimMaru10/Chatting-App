@@ -12,6 +12,7 @@ const ChatJoin = () => {
       if(userName.trim() === '' || roomName.trim() === ''){ // 'trim()' 메소드는 문자열의 양 끝에 있는 공백을 제거합니다.
         alert("닉네임 또는 채팅 룸 번호가 입력되지 않았습니다.");
       }else{
+        // navigate(`/chatRoom/${roomName}/${userName}`);
         const JoinData = {
           userName:userName,
           roomName:roomName

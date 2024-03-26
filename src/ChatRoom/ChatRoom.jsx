@@ -1,7 +1,7 @@
 import React, { useState, useEffect,useRef } from 'react';
 import { Client } from '@stomp/stompjs';
 import { useParams } from 'react-router-dom';
-// import axios from 'axios';
+import axios from 'axios';
 import './ChatRoom.scss';
 let socket;
 
@@ -35,7 +35,7 @@ function ChatRoom() {
         // 서버에서 전송한 메시지를 받아와서 화면에 표시
         
         const parsedMessage = JSON.parse(message.body);
-        setMessages(prevMessages => [...prevMessages, { userName: parsedMessage.userName, content: parsedMessage.message }]);
+        setMessages(prevMessages => [...prevMessages, { 'userName': parsedMessage.userName, 'content': parsedMessage.message , 'time': parsedMessage.time}]);
       });
     };
 
@@ -69,27 +69,27 @@ function ChatRoom() {
   };
   
   //채팅 기록을 가져오는 함수
-  // const fetchChatHistory = async (room_id) => {
-  //   try {
-  //       const response = await axios.get(`/api/chat/history/${room_id}`); //나중에 변경
-  //       return response.data; // 가져온 채팅 기록을 반환
-  //   } catch (error) {
-  //       throw new Error('채팅 기록을 가져오는 중 오류 발생: ' + error.message);
-  //   }
-  // };
+  const fetchChatHistory = async (room_id) => {
+    try {
+        const response = await axios.get(`http://kim-sun-woo.com/api/chat/history/${room_id}`); //나중에 변경
+        return response.data; // 가져온 채팅 기록을 반환
+    } catch (error) {
+        throw new Error('채팅 기록을 가져오는 중 오류 발생: ' + error.message);
+    }
+  };
 
-  // useEffect(() => {
-  //   // 컴포넌트가 마운트될 때 fetchChatHistory 함수를 호출하여 채팅 기록을 가져옴
-  //   const room_name = roomName; // 채팅방의 아이디 혹은 필요한 값
-  //   fetchChatHistory(room_name)
-  //     .then(chatHistory => {
-  //       // 가져온 채팅 기록을 상태에 설정
-  //       setMessages(chatHistory);
-  //     })
-  //     .catch(error => {
-  //       console.error('이전 채팅 기록을 가져오는 중 오류 발생:', error.message);
-  //     });
-  // }, [roomName]);
+  useEffect(() => {
+    // 컴포넌트가 마운트될 때 fetchMessageHistory 함수를 호출하여 채팅 기록을 가져옴
+    const room_name = roomName; // 채팅방의 아이디 혹은 필요한 값
+    fetchChatHistory(room_name)
+      .then(messageHistory => {
+        // 가져온 채팅 기록을 상태에 설정
+        setMessages(messageHistory);
+      })
+      .catch(error => {
+        console.error('이전 채팅 기록을 가져오는 중 오류 발생:', error.message);
+      });
+  }, [roomName]);
 
   //채팅 입력시 엔터키로 전송
   const handleOnKeyDown = (event) => {
